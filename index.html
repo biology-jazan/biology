@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>منصة تخصص الأحياء | Biology Hub</title>
+  <style>
+    :root {
+      --primary-color: #1b4332;
+      --secondary-color: #2d6a4f;
+      --accent-color: #52b788;
+      --bg-color: #f8f9fa;
+      --card-bg: #ffffff;
+      --text-color: #2b2b2b;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: white;
+      padding: 2rem 1rem;
+      text-align: center;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    header h1 { margin: 0; font-size: 2.2rem; }
+    header p { margin-top: 0.5rem; opacity: 0.9; }
+
+    nav {
+      background-color: var(--secondary-color);
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      padding: 0.8rem;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+
+    nav a:hover { color: var(--accent-color); }
+
+    .container {
+      max-width: 1100px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    .search-section {
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .search-input {
+      width: 80%;
+      max-width: 500px;
+      padding: 0.8rem 1.2rem;
+      border: 2px solid var(--accent-color);
+      border-radius: 25px;
+      font-size: 1rem;
+      outline: none;
+    }
+
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      border-top: 5px solid var(--accent-color);
+      transition: transform 0.2s;
+    }
+
+    .card:hover { transform: translateY(-5px); }
+
+    .card h3 { color: var(--primary-color); margin-top: 0; }
+
+    .badge {
+      display: inline-block;
+      background-color: #d8f3dc;
+      color: var(--primary-color);
+      padding: 0.2rem 0.6rem;
+      border-radius: 12px;
+      font-size: 0.85rem;
+      font-weight: bold;
+      margin-bottom: 0.8rem;
+    }
+
+    .btn {
+      display: inline-block;
+      margin-top: 1rem;
+      padding: 0.6rem 1.2rem;
+      background-color: var(--primary-color);
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+      font-size: 0.9rem;
+    }
+
+    .btn:hover { background-color: var(--secondary-color); }
+
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      background-color: var(--primary-color);
+      color: white;
+      margin-top: 3rem;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>🧬 المنصة الأكاديمية لتخصص الأحياء</h1>
+    <p>جميع المقررات، الملخصات، وملفات العملي في مكان واحد</p>
+  </header>
+
+  <nav>
+    <a href="#levels">المستويات الدراسية</a>
+    <a href="#labs">المختبرات والعملي</a>
+    <a href="#research">الأبحاث والتكليفات</a>
+    <a href="#links">روابط مهمة</a>
+  </nav>
+
+  <div class="container">
+    <div class="search-section">
+      <input type="text" class="search-input" placeholder="ابحث عن مادة، ملخص، أو ملزمة...">
+    </div>
+
+    <h2>📚 المستويات والمقررات الدراسية</h2>
+    <div class="grid-container" id="levels">
+      
+      <!-- كارت مقرر -->
+      <div class="card">
+        <span class="badge">المستوى الثالث</span>
+        <h3>علم الأحياء الدقيقة (Microbiology)</h3>
+        <p>ملخصات المحاضرات، سلايدات الشرح، وتجميعات أسئلة الاختبارات النظرية والعملية.</p>
+        <a href="#" class="btn">استعراض الملفات (Google Drive)</a>
+      </div>
+
+      <div class="card">
+        <span class="badge">المستوى الرابع</span>
+        <h3>علم النبات العام (Botany)</h3>
+        <p>تشريح النبات، أنسجة النبات، صور العينات المجهرية للعملي والتقارير الميدانية.</p>
+        <a href="#" class="btn">استعراض الملفات (Google Drive)</a>
+      </div>
+
+      <div class="card">
+        <span class="badge">المستوى الخامس</span>
+        <h3>علم الوراثة (Genetics)</h3>
+        <p>مسائل الوراثة والـ DNA، تقنيات الـ RNAi، ومذكرات التجارب المعملية.</p>
+        <a href="#" class="btn">استعراض الملفات (Google Drive)</a>
+      </div>
+
+      <div class="card">
+        <span class="badge">المستوى السادس</span>
+        <h3>علم البيئة والتلوث (Ecology)</h3>
+        <p>دراسات التلوث والتأثيرات البيئية، أبحاث التربة والمياه، والواجبات الميدانية.</p>
+        <a href="#" class="btn">استعراض الملفات (Google Drive)</a>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>
+    <p>تم التطوير لخدمة طلاب وطالبات تخصص الأحياء 🌿</p>
+  </footer>
+
+</body>
+</html>
