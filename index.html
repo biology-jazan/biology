@@ -3,183 +3,1023 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>منصة تخصص الأحياء | Biology Hub</title>
+  <title>المنصة الأكاديمية لتخصص الأحياء | الخطة الدراسية</title>
+  
+  <!-- الخطوط والأيقونات -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
   <style>
     :root {
-      --primary-color: #1b4332;
-      --secondary-color: #2d6a4f;
-      --accent-color: #52b788;
-      --bg-color: #f8f9fa;
+      --primary-green: #0f5132;
+      --primary-hover: #0b3d26;
+      --accent-mint: #2ec4b6;
+      --accent-soft: #e8f5e9;
+      --bg-main: #f8fafc;
       --card-bg: #ffffff;
-      --text-color: #2b2b2b;
+      --text-dark: #0f172a;
+      --text-muted: #64748b;
+      --border-color: #e2e8f0;
+      --shadow-sm: 0 4px 12px rgba(0,0,0,0.03);
+      --shadow-md: 0 10px 30px rgba(0,0,0,0.08);
+      --shadow-lg: 0 20px 40px rgba(0,0,0,0.12);
+      --radius: 16px;
+    }
+
+    [data-theme="dark"] {
+      --bg-main: #0b1329;
+      --card-bg: #1e293b;
+      --text-dark: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-color: #334155;
+      --accent-soft: #173827;
+      --shadow-sm: 0 4px 12px rgba(0,0,0,0.25);
+      --shadow-md: 0 10px 30px rgba(0,0,0,0.35);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Tajawal', sans-serif;
+      transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
     }
 
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: var(--bg-color);
-      color: var(--text-color);
-      margin: 0;
-      padding: 0;
-    }
-
-    header {
-      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-      color: white;
-      padding: 2rem 1rem;
-      text-align: center;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    }
-
-    header h1 { margin: 0; font-size: 2.2rem; }
-    header p { margin-top: 0.5rem; opacity: 0.9; }
-
-    nav {
-      background-color: var(--secondary-color);
+      background-color: var(--bg-main);
+      color: var(--text-dark);
+      line-height: 1.6;
+      min-height: 100vh;
       display: flex;
-      justify-content: center;
-      gap: 1.5rem;
-      padding: 0.8rem;
+      flex-direction: column;
     }
 
-    nav a {
-      color: white;
-      text-decoration: none;
-      font-weight: bold;
-      transition: color 0.3s;
+    /* Toast System */
+    .toast-container {
+      position: fixed;
+      bottom: 2rem;
+      left: 2rem;
+      z-index: 999;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      pointer-events: none;
     }
 
-    nav a:hover { color: var(--accent-color); }
-
-    .container {
-      max-width: 1100px;
-      margin: 2rem auto;
-      padding: 0 1rem;
-    }
-
-    .search-section {
-      margin-bottom: 2rem;
-      text-align: center;
-    }
-
-    .search-input {
-      width: 80%;
-      max-width: 500px;
-      padding: 0.8rem 1.2rem;
-      border: 2px solid var(--accent-color);
-      border-radius: 25px;
-      font-size: 1rem;
-      outline: none;
-    }
-
-    .grid-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .card {
+    .toast {
       background: var(--card-bg);
+      color: var(--text-dark);
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-lg);
+      padding: 0.8rem 1.2rem;
       border-radius: 12px;
-      padding: 1.5rem;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-      border-top: 5px solid var(--accent-color);
-      transition: transform 0.2s;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      pointer-events: auto;
+      animation: toastIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
 
-    .card:hover { transform: translateY(-5px); }
+    .toast i { color: var(--accent-mint); }
 
-    .card h3 { color: var(--primary-color); margin-top: 0; }
-
-    .badge {
-      display: inline-block;
-      background-color: #d8f3dc;
-      color: var(--primary-color);
-      padding: 0.2rem 0.6rem;
-      border-radius: 12px;
-      font-size: 0.85rem;
-      font-weight: bold;
-      margin-bottom: 0.8rem;
+    @keyframes toastIn {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
     }
 
-    .btn {
-      display: inline-block;
-      margin-top: 1rem;
-      padding: 0.6rem 1.2rem;
-      background-color: var(--primary-color);
-      color: white;
-      text-decoration: none;
-      border-radius: 6px;
+    /* Navbar */
+    .navbar {
+      background: var(--card-bg);
+      border-bottom: 1px solid var(--border-color);
+      padding: 1rem 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      font-weight: 800;
+      font-size: 1.35rem;
+      color: var(--primary-green);
+    }
+
+    .brand-icon {
+      width: 42px;
+      height: 42px;
+      background: var(--accent-soft);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent-mint);
+      font-size: 1.4rem;
+    }
+
+    .btn-action {
+      background: var(--bg-main);
+      border: 1px solid var(--border-color);
+      color: var(--text-dark);
+      padding: 0.55rem 1.1rem;
+      border-radius: 50px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 700;
       font-size: 0.9rem;
     }
 
-    .btn:hover { background-color: var(--secondary-color); }
+    .btn-action:hover {
+      border-color: var(--primary-green);
+      color: var(--primary-green);
+      background: var(--accent-soft);
+    }
+
+    /* Hero Banner */
+    .hero {
+      background: linear-gradient(135deg, #0f5132 0%, #164e33 50%, #072718 100%);
+      color: white;
+      padding: 3.5rem 1.5rem 5rem 1.5rem;
+      text-align: center;
+      position: relative;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(8px);
+      padding: 0.4rem 1.1rem;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .hero h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 0.6rem;
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      max-width: 650px;
+      margin: 0 auto 1.8rem auto;
+    }
+
+    /* Stats Bar */
+    .stats-container {
+      display: flex;
+      justify-content: center;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+    }
+
+    .stat-card {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(12px);
+      padding: 0.75rem 1.4rem;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+    }
+
+    .stat-card i {
+      font-size: 1.4rem;
+      color: var(--accent-mint);
+    }
+
+    .stat-info h4 {
+      font-size: 1.25rem;
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    .stat-info span {
+      font-size: 0.78rem;
+      opacity: 0.85;
+    }
+
+    /* Main Section */
+    .main-content {
+      max-width: 1280px;
+      margin: -2.5rem auto 4rem auto;
+      padding: 0 1.5rem;
+      position: relative;
+      z-index: 10;
+      flex-grow: 1;
+    }
+
+    /* Controls */
+    .controls-wrapper {
+      background: var(--card-bg);
+      padding: 1.4rem;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--border-color);
+      margin-bottom: 2rem;
+    }
+
+    .search-row {
+      display: flex;
+      gap: 0.8rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .search-bar {
+      position: relative;
+      flex-grow: 1;
+    }
+
+    .search-bar i {
+      position: absolute;
+      right: 1.2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      font-size: 1.1rem;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 0.9rem 3.2rem 0.9rem 1.2rem;
+      border: 2px solid var(--border-color);
+      border-radius: 12px;
+      font-size: 0.95rem;
+      background: var(--bg-main);
+      color: var(--text-dark);
+      outline: none;
+      font-weight: 600;
+    }
+
+    .search-input:focus {
+      border-color: var(--primary-green);
+    }
+
+    .btn-reset {
+      background: var(--bg-main);
+      border: 2px solid var(--border-color);
+      color: var(--text-muted);
+      border-radius: 12px;
+      padding: 0 1.2rem;
+      cursor: pointer;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .btn-reset:hover {
+      background: #ef444415;
+      color: #ef4444;
+      border-color: #ef444450;
+    }
+
+    /* Level Navigation Tabs */
+    .level-tabs {
+      display: flex;
+      gap: 0.5rem;
+      overflow-x: auto;
+      padding-bottom: 0.4rem;
+      scrollbar-width: thin;
+    }
+
+    .level-tab {
+      background: var(--bg-main);
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+      padding: 0.55rem 1.15rem;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 0.88rem;
+      cursor: pointer;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .level-tab:hover {
+      border-color: var(--primary-green);
+      color: var(--primary-green);
+    }
+
+    .level-tab.active {
+      background: var(--primary-green);
+      color: white;
+      border-color: var(--primary-green);
+      box-shadow: 0 4px 12px rgba(15, 81, 50, 0.3);
+    }
+
+    .level-tab.tab-fav.active {
+      background: #eab308;
+      border-color: #eab308;
+      color: #000;
+      box-shadow: 0 4px 12px rgba(234, 179, 8, 0.3);
+    }
+
+    /* Courses Grid */
+    .courses-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+      gap: 1.3rem;
+    }
+
+    .course-card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      border: 1px solid var(--border-color);
+      padding: 1.4rem;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+
+    .course-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--accent-mint);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1rem;
+    }
+
+    .course-badge-code {
+      background: var(--accent-soft);
+      color: var(--primary-green);
+      font-size: 0.85rem;
+      font-weight: 800;
+      padding: 0.3rem 0.75rem;
+      border-radius: 8px;
+      letter-spacing: 0.5px;
+    }
+
+    .card-header-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .hours-badge {
+      font-size: 0.78rem;
+      font-weight: 700;
+      background: var(--bg-main);
+      border: 1px solid var(--border-color);
+      padding: 0.25rem 0.65rem;
+      border-radius: 50px;
+      color: var(--text-muted);
+    }
+
+    .btn-fav {
+      background: var(--bg-main);
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.95rem;
+    }
+
+    .btn-fav:hover, .btn-fav.active {
+      color: #eab308;
+      border-color: #eab308;
+      background: #fef9c3;
+    }
+
+    [data-theme="dark"] .btn-fav:hover, [data-theme="dark"] .btn-fav.active {
+      background: #422006;
+    }
+
+    .course-title {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--text-dark);
+      margin-bottom: 0.4rem;
+      line-height: 1.4;
+    }
+
+    .level-indicator {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      margin-bottom: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .card-footer {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .btn-view {
+      flex-grow: 1;
+      padding: 0.75rem;
+      background: var(--primary-green);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .btn-view:hover {
+      background: var(--primary-hover);
+    }
+
+    .btn-share {
+      padding: 0.75rem;
+      background: var(--bg-main);
+      border: 1px solid var(--border-color);
+      color: var(--text-dark);
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+
+    .btn-share:hover {
+      border-color: var(--primary-green);
+      color: var(--primary-green);
+    }
+
+    /* Modal Overlay Drawer */
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(15, 23, 42, 0.65);
+      backdrop-filter: blur(6px);
+      z-index: 200;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      padding: 1rem;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal-content {
+      background: var(--card-bg);
+      width: 100%;
+      max-width: 640px;
+      border-radius: var(--radius);
+      padding: 1.8rem;
+      max-height: 85vh;
+      overflow-y: auto;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--border-color);
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 1rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .close-modal {
+      background: var(--bg-main);
+      border: 1px solid var(--border-color);
+      color: var(--text-dark);
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .close-modal:hover {
+      background: #ef444415;
+      color: #ef4444;
+    }
+
+    .resource-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .resource-group h4 {
+      font-size: 1rem;
+      color: var(--primary-green);
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 800;
+    }
+
+    .resource-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .resource-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.8rem 1rem;
+      background: var(--bg-main);
+      border-radius: 10px;
+      border: 1px solid var(--border-color);
+    }
+
+    .resource-info {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .resource-actions {
+      display: flex;
+      gap: 0.4rem;
+    }
+
+    .btn-res-action {
+      padding: 0.4rem 0.8rem;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .btn-res-download {
+      background: var(--primary-green);
+      color: white;
+    }
+
+    .btn-res-download:hover {
+      background: var(--primary-hover);
+    }
+
+    .btn-res-copy {
+      background: var(--card-bg);
+      color: var(--text-dark);
+      border: 1px solid var(--border-color);
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 3.5rem 1rem;
+      color: var(--text-muted);
+      grid-column: 1 / -1;
+    }
+
+    .empty-state i {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      opacity: 0.4;
+    }
 
     footer {
+      background: var(--card-bg);
+      border-top: 1px solid var(--border-color);
+      padding: 1.6rem;
       text-align: center;
-      padding: 1.5rem;
-      background-color: var(--primary-color);
-      color: white;
-      margin-top: 3rem;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-top: auto;
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 1.8rem; }
+      .search-row { flex-direction: column; }
     }
   </style>
 </head>
 <body>
 
-  <header>
-    <h1>🧬 المنصة الأكاديمية لتخصص الأحياء</h1>
-    <p>جميع المقررات، الملخصات، وملفات العملي في مكان واحد</p>
-  </header>
+  <!-- Toast Container -->
+  <div class="toast-container" id="toastContainer"></div>
 
-  <nav>
-    <a href="#levels">المستويات الدراسية</a>
-    <a href="#labs">المختبرات والعملي</a>
-    <a href="#research">الأبحاث والتكليفات</a>
-    <a href="#links">روابط مهمة</a>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="brand">
+      <div class="brand-icon">
+        <i class="fa-solid fa-dna"></i>
+      </div>
+      <span>خطة تخصص الأحياء</span>
+    </div>
+    <button class="btn-action" id="themeBtn" onclick="toggleTheme()">
+      <i class="fa-solid fa-moon"></i>
+      <span>الوضع الليلي</span>
+    </button>
   </nav>
 
-  <div class="container">
-    <div class="search-section">
-      <input type="text" class="search-input" placeholder="ابحث عن مادة، ملخص، أو ملزمة...">
+  <!-- Hero Header -->
+  <header class="hero">
+    <div class="hero-badge">
+      <i class="fa-solid fa-graduation-cap"></i>
+      <span>الخطة الدراسية لقسم الأحياء</span>
+    </div>
+    <h1>🧬 المنصة الأكاديمية الشاملة</h1>
+    <p>جميع مقررات قسم الأحياء المعتمدة من المستوى الأول إلى الثامن، مقسمة بالرموز وعدد الساعات والأدلة الدراسية.</p>
+
+    <div class="stats-container">
+      <div class="stat-card">
+        <i class="fa-solid fa-book-bookmark"></i>
+        <div class="stat-info">
+          <h4 id="totalCoursesCount">50</h4>
+          <span>مقرر دراسي</span>
+        </div>
+      </div>
+      <div class="stat-card">
+        <i class="fa-solid fa-clock"></i>
+        <div class="stat-info">
+          <h4 id="totalHoursCount">128+</h4>
+          <span>ساعة معتمدة</span>
+        </div>
+      </div>
+      <div class="stat-card">
+        <i class="fa-solid fa-layer-group"></i>
+        <div class="stat-info">
+          <h4>8</h4>
+          <span>مستويات دراسية</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <div class="controls-wrapper">
+      <div class="search-row">
+        <div class="search-bar">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" id="searchInput" class="search-input" placeholder="ابحث باسم المادة أو الرمز (مثال: 101حيا، 231حدق، كيمياء حيوية)..." oninput="filterCourses()">
+        </div>
+        <button class="btn-reset" onclick="resetFilters()">
+          <i class="fa-solid fa-rotate-left"></i>
+          <span>إعادة ضبط</span>
+        </button>
+      </div>
+
+      <div class="level-tabs" id="levelTabs">
+        <button class="level-tab active" onclick="filterByLevel('all', this)">جميع المستويات</button>
+        <button class="level-tab tab-fav" onclick="filterByLevel('fav', this)"><i class="fa-solid fa-star"></i> المفضلة (<span id="favCount">0</span>)</button>
+        <button class="level-tab" onclick="filterByLevel(1, this)">المستوى 1</button>
+        <button class="level-tab" onclick="filterByLevel(2, this)">المستوى 2</button>
+        <button class="level-tab" onclick="filterByLevel(3, this)">المستوى 3</button>
+        <button class="level-tab" onclick="filterByLevel(4, this)">المستوى 4</button>
+        <button class="level-tab" onclick="filterByLevel(5, this)">المستوى 5</button>
+        <button class="level-tab" onclick="filterByLevel(6, this)">المستوى 6</button>
+        <button class="level-tab" onclick="filterByLevel(7, this)">المستوى 7</button>
+        <button class="level-tab" onclick="filterByLevel(8, this)">المستوى 8</button>
+      </div>
     </div>
 
-    <h2>📚 المستويات والمقررات الدراسية</h2>
-    <div class="grid-container" id="levels">
-      
-      <!-- كارت مقرر -->
-      <div class="card">
-        <span class="badge">المستوى الثالث</span>
-        <h3>علم الأحياء الدقيقة (Microbiology)</h3>
-        <p>ملخصات المحاضرات، سلايدات الشرح، وتجميعات أسئلة الاختبارات النظرية والعملية.</p>
-        <a href="#" class="btn">استعراض الملفات (Google Drive)</a>
+    <!-- Courses Grid -->
+    <div class="courses-grid" id="coursesGrid"></div>
+  </main>
+
+  <!-- Modal Details Drawer -->
+  <div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+    <div class="modal-content" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <div>
+          <span class="course-badge-code" id="modalCode">101حيا-4</span>
+          <h2 id="modalTitle" style="font-size: 1.3rem; font-weight: 800; margin-top: 0.4rem;">أحياء عامة</h2>
+        </div>
+        <button class="close-modal" onclick="forceCloseModal()"><i class="fa-solid fa-xmark"></i></button>
       </div>
 
-      <div class="card">
-        <span class="badge">المستوى الرابع</span>
-        <h3>علم النبات العام (Botany)</h3>
-        <p>تشريح النبات، أنسجة النبات، صور العينات المجهرية للعملي والتقارير الميدانية.</p>
-        <a href="#" class="btn">استعراض الملفات (Google Drive)</a>
-      </div>
+      <div class="modal-body">
+        <div class="resource-group">
+          <h4><i class="fa-solid fa-file-powerpoint"></i> السلايدات والمحاضرات النظرية</h4>
+          <div class="resource-list" id="slidesList"></div>
+        </div>
 
-      <div class="card">
-        <span class="badge">المستوى الخامس</span>
-        <h3>علم الوراثة (Genetics)</h3>
-        <p>مسائل الوراثة والـ DNA، تقنيات الـ RNAi، ومذكرات التجارب المعملية.</p>
-        <a href="#" class="btn">استعراض الملفات (Google Drive)</a>
-      </div>
+        <div class="resource-group">
+          <h4><i class="fa-solid fa-flask"></i> التجارب والدليل العملي</h4>
+          <div class="resource-list" id="labList"></div>
+        </div>
 
-      <div class="card">
-        <span class="badge">المستوى السادس</span>
-        <h3>علم البيئة والتلوث (Ecology)</h3>
-        <p>دراسات التلوث والتأثيرات البيئية، أبحاث التربة والمياه، والواجبات الميدانية.</p>
-        <a href="#" class="btn">استعراض الملفات (Google Drive)</a>
+        <div class="resource-group">
+          <h4><i class="fa-solid fa-file-signature"></i> التجميعات والاختبارات</h4>
+          <div class="resource-list" id="examsList"></div>
+        </div>
       </div>
-
     </div>
   </div>
 
+  <!-- Footer -->
   <footer>
-    <p>تم التطوير لخدمة طلاب وطالبات تخصص الأحياء 🌿</p>
+    <p>الخطة المعتمدة لقسم الأحياء 🌿 | جميع الحقوق محفوظة © 2026</p>
   </footer>
 
+  <script>
+    const biologyCourses = [
+      // المستوى الأول
+      { id: 101, code: "101حيا-4", title: "أحياء عامة", hours: 4, level: 1 },
+      { id: 102, code: "101ريض-3", title: "رياضيات عامة", hours: 3, level: 1 },
+      { id: 103, code: "101سلم-2", title: "ثقافة إسلامية 1", hours: 2, level: 1 },
+      { id: 104, code: "105نجل-6", title: "لغة إنجليزية", hours: 6, level: 1 },
+
+      // المستوى الثاني
+      { id: 201, code: "101ذكاء", title: "مقدمة في الذكاء الاصطناعي", hours: 1, level: 2 },
+      { id: 202, code: "101فيز-4", title: "فيزياء عامة", hours: 4, level: 2 },
+      { id: 203, code: "101كيم-4", title: "كيمياء عامة", hours: 4, level: 2 },
+      { id: 204, code: "102سلم-2", title: "ثقافة إسلامية 2", hours: 2, level: 2 },
+      { id: 205, code: "102عرب-2", title: "التحرير العربي", hours: 2, level: 2 },
+      { id: 206, code: "106نجل-3", title: "لغة إنجليزية علمية", hours: 3, level: 2 },
+
+      // المستوى الثالث
+      { id: 301, code: "203كيم-3", title: "كيمياء عضوية", hours: 3, level: 3 },
+      { id: 302, code: "205إحص-2", title: "إحصاء حيوي", hours: 2, level: 3 },
+      { id: 303, code: "211حيا-3", title: "علم الخلية", hours: 3, level: 3 },
+      { id: 304, code: "231حدق-2", title: "علم البكتريا", hours: 2, level: 3 },
+      { id: 305, code: "241نبت-3", title: "مورفولوجيا وتشريح نبات", hours: 3, level: 3 },
+      { id: 306, code: "251حين-3", title: "لافقاريات", hours: 3, level: 3 },
+
+      // المستوى الرابع
+      { id: 401, code: "204كيم-3", title: "كيمياء حيوية", hours: 3, level: 4 },
+      { id: 402, code: "222حيا-2", title: "وراثة عامة", hours: 2, level: 4 },
+      { id: 403, code: "232حدق-2", title: "علم الفيروسات", hours: 2, level: 4 },
+      { id: 404, code: "242نبت-2", title: "أربشيجونيات", hours: 2, level: 4 },
+      { id: 405, code: "252حين-2", title: "علم الأنسجة", hours: 2, level: 4 },
+      { id: 406, code: "254حين-3", title: "حبليات", hours: 3, level: 4 },
+
+      // المستوى الخامس
+      { id: 501, code: "301حيا-2", title: "أساسيات علم البيئة", hours: 2, level: 5 },
+      { id: 502, code: "311حيا-2", title: "تحضيرات مجهرية", hours: 2, level: 5 },
+      { id: 503, code: "331حدق-2", title: "الطحالب", hours: 2, level: 5 },
+      { id: 504, code: "333حدق-3", title: "فطريات وأمراض نبات", hours: 3, level: 5 },
+      { id: 505, code: "341نبت-2", title: "علاقة النبات بالماء والتربة", hours: 2, level: 5 },
+      { id: 506, code: "351حين-3", title: "فسيولوجيا حيوان", hours: 3, level: 5 },
+      { id: 507, code: "352حين-2", title: "علم الطفيليات", hours: 2, level: 5 },
+
+      // المستوى السادس
+      { id: 601, code: "334حدق-3", title: "فسيولوجيا أحياء دقيقة", hours: 3, level: 6 },
+      { id: 602, code: "342نبت-2", title: "تصنيف النباتات الزهرية", hours: 2, level: 6 },
+      { id: 603, code: "344نبت-2", title: "هرمونات نباتية", hours: 2, level: 6 },
+      { id: 604, code: "353حين-3", title: "أحياء بحرية", hours: 3, level: 6 },
+      { id: 605, code: "354حين-2", title: "علم المناعة والأمصال", hours: 2, level: 6 },
+      { id: 606, code: "356حين-3", title: "علم الحشرات العام", hours: 3, level: 6 },
+
+      // المستوى السابع
+      { id: 701, code: "411حيا-2", title: "بيولوجيا جزيئية", hours: 2, level: 7 },
+      { id: 702, code: "431حدق-2", title: "ميكروبيولوجيا صناعية", hours: 2, level: 7 },
+      { id: 703, code: "433حدق-2", title: "ميكروبيولوجيا طبية", hours: 2, level: 7 },
+      { id: 704, code: "441نبت-3", title: "فسيولوجيا نبات", hours: 3, level: 7 },
+      { id: 705, code: "443نبت-2", title: "علم البيئة النباتية", hours: 2, level: 7 },
+      { id: 706, code: "451حين-2", title: "علم الغدد الصماء", hours: 2, level: 7 },
+      { id: 707, code: "491حيا-2", title: "بحث تخرج", hours: 2, level: 7 },
+
+      // المستوى الثامن
+      { id: 801, code: "402حيا-2", title: "التنوع الحيوي في المملكة", hours: 2, level: 8 },
+      { id: 802, code: "412حيا-2", title: "تقنية حيوية", hours: 2, level: 8 },
+      { id: 803, code: "432حدق-2", title: "ميكروبيولوجيا البيئة", hours: 2, level: 8 },
+      { id: 804, code: "442نبت-2", title: "نبات اقتصادي", hours: 2, level: 8 },
+      { id: 805, code: "452حين-2", title: "علم الأجنة", hours: 2, level: 8 },
+      { id: 806, code: "454حين-2", title: "بيئة وسلوك الحيوان", hours: 2, level: 8 },
+      { id: 807, code: "456حين-3", title: "حشرات طبية واقتصادية", hours: 3, level: 8 }
+    ];
+
+    let currentLevel = 'all';
+    let favorites = JSON.parse(localStorage.getItem('bio_plan_favorites')) || [];
+
+    // Toast Notice
+    function showToast(message, icon = 'fa-circle-check') {
+      const container = document.getElementById('toastContainer');
+      const toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.innerHTML = `<i class="fa-solid ${icon}"></i> <span>${message}</span>`;
+      container.appendChild(toast);
+      setTimeout(() => { toast.remove(); }, 3000);
+    }
+
+    // Favorite Updates
+    function updateFavCount() {
+      document.getElementById('favCount').innerText = favorites.length;
+    }
+
+    function toggleFavorite(id, event) {
+      event.stopPropagation();
+      if (favorites.includes(id)) {
+        favorites = favorites.filter(favId => favId !== id);
+        showToast('تمت إزالة المقرر من المفضلة', 'fa-star');
+      } else {
+        favorites.push(id);
+        showToast('تمت إضافة المقرر إلى المفضلة ⭐', 'fa-star');
+      }
+      localStorage.setItem('bio_plan_favorites', JSON.stringify(favorites));
+      updateFavCount();
+      filterCourses();
+    }
+
+    function renderCourses(data) {
+      const grid = document.getElementById('coursesGrid');
+      document.getElementById('totalCoursesCount').innerText = biologyCourses.length;
+
+      // Calculate total hours
+      const sumHours = biologyCourses.reduce((acc, curr) => acc + curr.hours, 0);
+      document.getElementById('totalHoursCount').innerText = sumHours;
+
+      if (data.length === 0) {
+        grid.innerHTML = `
+          <div class="empty-state">
+            <i class="fa-solid fa-folder-open"></i>
+            <h3>لم يتم العثور على أية نتائج تطابق البحث</h3>
+            <p>تأكد من كتابة الاسم بشكل صحيح أو جرب فلتر آخر.</p>
+          </div>
+        `;
+        return;
+      }
+
+      grid.innerHTML = data.map(course => {
+        const isFav = favorites.includes(course.id);
+        return `
+        <div class="course-card">
+          <div>
+            <div class="card-header">
+              <span class="course-badge-code">${course.code}</span>
+              <div class="card-header-actions">
+                <span class="hours-badge">${course.hours} ساعات</span>
+                <button class="btn-fav ${isFav ? 'active' : ''}" onclick="toggleFavorite(${course.id}, event)" title="إضافة للمفضلة">
+                  <i class="fa-${isFav ? 'solid' : 'regular'} fa-star"></i>
+                </button>
+              </div>
+            </div>
+            <h3 class="course-title">${course.title}</h3>
+            <div class="level-indicator">
+              <i class="fa-solid fa-layer-group"></i>
+              <span>المستوى الدراسـي: ${course.level}</span>
+            </div>
+          </div>
+          <div class="card-footer">
+            <button class="btn-view" onclick="openModal(${course.id})">
+              <i class="fa-solid fa-folder-open"></i>
+              فتح المصادر
+            </button>
+            <button class="btn-share" onclick="shareCourse('${course.title}', '${course.code}', event)" title="مشاركة">
+              <i class="fa-solid fa-share-nodes"></i>
+            </button>
+          </div>
+        </div>
+      `}).join('');
+    }
+
+    function filterByLevel(level, btn) {
+      currentLevel = level;
+      document.querySelectorAll('.level-tab').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      filterCourses();
+    }
+
+    function resetFilters() {
+      document.getElementById('searchInput').value = '';
+      const allBtn = document.querySelector('.level-tab');
+      filterByLevel('all', allBtn);
+      showToast('تمت إعادة ضبط التصفية');
+    }
+
+    function filterCourses() {
+      const query = document.getElementById('searchInput').value.toLowerCase();
+      const filtered = biologyCourses.filter(course => {
+        let matchesLevel = false;
+        if (currentLevel === 'all') matchesLevel = true;
+        else if (currentLevel === 'fav') matchesLevel = favorites.includes(course.id);
+        else matchesLevel = (course.level == currentLevel);
+
+        const matchesQuery = course.title.toLowerCase().includes(query) || 
+                             course.code.toLowerCase().includes(query);
+        return matchesLevel && matchesQuery;
+      });
+      renderCourses(filtered);
+    }
+
+    function shareCourse(title, code, event) {
+      event.stopPropagation();
+      const text = `${title} (${code}) - منصة الخطة الدراسية لتخصص الأحياء 🧬`;
+      const tempInput = document.createElement('input');
+      tempInput.value = text;
+      document.body.appendChild(tempInput);
+      tempInput.select();
+      document.execCommand('copy');
+      document.body.removeChild(tempInput);
+      showToast('تم نسخ اسم المقرر ورامزه للحافظة 📋');
+    }
+
+    function copyLink(url) {
+      const tempInput = document.createElement('input');
+      tempInput.value = url;
+      document.body.appendChild(tempInput);
+      tempInput.select();
+      document.execCommand('copy');
+      document.body.removeChild(tempInput);
+      showToast('تم نسخ رابط المصدر بنجاح');
+    }
+
+    function openModal(courseId) {
+      const course = biologyCourses.find(c => c.id === courseId);
+      if(!course) return;
+
+      document.getElementById('modalCode').innerText = `${course.code} (${course.hours} ساعات)`;
+      document.getElementById('modalTitle').innerText = `${course.title} - المستوى ${course.level}`;
+
+      const sampleLink = "https://drive.google.com";
+
+      const renderList = (prefix) => `
+        <div class="resource-item">
+          <div class="resource-info">
+            <i class="fa-solid fa-file-pdf" style="color: var(--primary-green);"></i>
+            <span>${prefix} - ${course.title}</span>
+          </div>
+          <div class="resource-actions">
+            <a href="${sampleLink}" target="_blank" class="btn-res-action btn-res-download">
+              <i class="fa-solid fa-arrow-down-to-line"></i> فتح
+            </a>
+            <button onclick="copyLink('${sampleLink}')" class="btn-res-action btn-res-copy">
+              <i class="fa-solid fa-copy"></i>
+            </button>
+          </div>
+        </div>
+      `;
+
+      document.getElementById('slidesList').innerHTML = renderList("السلايدات النظرية المعتمدة");
+      document.getElementById('labList').innerHTML = renderList("دليل وتجارب المعمل العملي");
+      document.getElementById('examsList').innerHTML = renderList("تجميعات وأسئلة السنين السابقة");
+
+      document.getElementById('modalOverlay').classList.add('active');
+    }
+
+    function closeModal(e) { document.getElementById('modalOverlay').classList.remove('active'); }
+    function forceCloseModal() { document.getElementById('modalOverlay').classList.remove('active'); }
+
+    function toggleTheme() {
+      const body = document.body;
+      const themeBtn = document.getElementById('themeBtn');
+      const isDark = body.getAttribute('data-theme') === 'dark';
+      
+      if (isDark) {
+        body.removeAttribute('data-theme');
+        localStorage.setItem('bio_theme', 'light');
+        themeBtn.innerHTML = '<i class="fa-solid fa-moon"></i> <span>الوضع الليلي</span>';
+      } else {
+        body.setAttribute('data-theme', 'dark');
+        localStorage.setItem('bio_theme', 'dark');
+        themeBtn.innerHTML = '<i class="fa-solid fa-sun"></i> <span>الوضع النهاري</span>';
+      }
+    }
+
+    function initTheme() {
+      const savedTheme = localStorage.getItem('bio_theme');
+      const themeBtn = document.getElementById('themeBtn');
+      if (savedTheme === 'dark') {
+        document.body.setAttribute('data-theme', 'dark');
+        themeBtn.innerHTML = '<i class="fa-solid fa-sun"></i> <span>الوضع النهاري</span>';
+      }
+    }
+
+    // Startup Initialization
+    initTheme();
+    updateFavCount();
+    renderCourses(biologyCourses);
+  </script>
 </body>
 </html>
